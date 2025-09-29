@@ -1,0 +1,36 @@
+<%- include("../partials/header", {metaTitle: "Sign Up"})  %>
+
+    <div class="container">
+      <div class="card" role="main">
+        <div class="panel">
+          <h1 id="panel-heading">Get Started</h1>
+          <p class="lead" id="panel-sub">
+            Sign up to create and manage your Todos
+          </p>
+          <form action="">
+            <input type="email" name="email" placeholder="Email" required />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              required
+            />
+            <button type="submit">Sign Up</button>
+          </form>
+
+          <footer>
+            <div>
+              <p>Already have an account? <a href="/login">Login</a></p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

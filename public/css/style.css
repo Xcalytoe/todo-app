@@ -1,0 +1,147 @@
+/* General Styles */
+:root {
+  --blue: #007bff;
+}
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+  color: #333;
+}
+
+.container {
+  max-width: 400px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+input,
+button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+nav {
+  background: white;
+  padding: 20px 100px;
+}
+nav a{
+  color:#333;
+   text-decoration: none;
+
+}
+
+.logo {
+  display: flex;
+  justify-items: center;
+  padding-bottom: 8px;
+}
+.logo span {
+  padding: 4px 0;
+}
+.logo span:nth-of-type(1) {
+  border-radius: 6px;
+  padding: 4px 6px;
+  background: #efefef;
+  color: var(--blue);
+  font-weight: 500;
+}
+.lead {
+  text-align: center;
+}
+.btn-flex {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+footer {
+  display: block;
+  width: 100%;
+}
+footer div {
+  display: flex;
+  justify-content: center;
+}
+button {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+a {
+  text-decoration: none;
+  color: var(--blue);
+  font-size: 0.9em;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Todo Page */
+.todo-container {
+  max-width: 500px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.todo-input {
+  display: flex;
+  gap: 10px;
+}
+
+.todo-input input {
+  flex: 1;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul li.done {
+  text-decoration: line-through;
+  color: gray;
+}
+
+ul li button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
