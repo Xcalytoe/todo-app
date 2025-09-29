@@ -4,24 +4,26 @@
 
 This is a hands-on backend learning project: a Todo application built with Express and EJS for server-rendered pages, MongoDB for data persistence, and `passport-jwt` for stateless authentication. It demonstrates routing, view templating, authentication with JWT, CRUD operations, validation, and basic error handling.
 
-## Features
+## 🚀 Demo
 
-- Server-rendered UI using EJS templates
-- User registration & login with JWT (passport-jwt)
-- Create, read, update, delete (CRUD) todos per user
-- Protected routes (only authenticated users can manage their todos)
-- Input validation and simple flash-style messages
-- Local development setup with MongoDB (local or Atlas)
+[Live Demo](https://todo-app-alpha-lime-49.vercel.app/)
 
-## Tech stack
+## 📂 Features
 
-- Node.js, Express
-- EJS (templating)
-- MongoDB (mongoose)
-- passport + passport-jwt (authentication)
-- dotenv (config)
-- bcrypt (password hashing)
+- User authentication (login/signup)
+- Add, edit, and delete todos
+- Secure API with JWT
+- EJS templating
+- MVC architecture
+
+## 🛠️ Installation
+
+1. Clone the repo
+   ```bash
+   git clone https://github.com/your-username/todo-app.git
+   cd todo-app
+   ```
 
 ## Environment variables
 
-Create a `.env` file with:
+Create a `.env` file using `.env.example` file
