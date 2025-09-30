@@ -18,12 +18,15 @@
   "homepage": "https://github.com/Xcalytoe/todo-app#readme",
   "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.2",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "mongoose": "^8.18.2",
     "nodemon": "^3.1.10",
-    "passport-jwt": "^4.0.1"
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0"
   }
 }

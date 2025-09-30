@@ -2,7 +2,7 @@ const { format } = require("date-fns");
 // TODO: fetch from db
 const todoList = [
   {
-    id: 1,
+    _id: 1,
     title: "Finish backend project",
     completed: false,
     date: "2023-10-10",
@@ -10,7 +10,7 @@ const todoList = [
     updatedAt: new Date(),
   },
   {
-    id: 2,
+    _id: 2,
     title: "Write documentation",
     completed: false,
     date: "2023-10-10",
@@ -18,7 +18,7 @@ const todoList = [
     updatedAt: new Date(),
   },
   {
-    id: 3,
+    _id: 3,
     title: "Go to gym",
     completed: true,
     date: "2025-09-28",
@@ -26,7 +26,7 @@ const todoList = [
     updatedAt: new Date(),
   },
   {
-    id: 4,
+    _id: 4,
     title: "Plan meal prep",
     completed: true,
     date: "2025-09-28",
@@ -34,9 +34,9 @@ const todoList = [
     updatedAt: new Date(),
   },
   {
-    id: 5,
+    _id: 5,
     title: "Resolving deltas: 100% (1/1), completed with 1 local object.",
-    completed: true,
+    completed: false,
     date: "2025-09-28",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -57,7 +57,9 @@ const groupByDate = (todoArr) => {
   }, {});
 };
 
-const getTodoList = (_, res) => {
+const getTodoList = (req, res) => {
+  console.log(req.params, "fdx");
+  console.log(req.query, "req.query");
   const list = groupByDate(todoList);
   res.render("todo/list", { todoList: list });
 };

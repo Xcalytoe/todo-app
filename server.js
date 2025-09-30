@@ -1,30 +1,36 @@
 const express = require("express");
-const {
-  todoPageRoute,
-  authPageRoute,
-  authApiRoute,
-  todoApiRoute,
-} = require("./src/routes");
-const path = require("path");
-const app = express();
-const { PORT, VERSION } = require("./src/config");
-
 require("dotenv").config();
-app.use(express.json());
+const passport = require("passport");
+const { authRoute, todoRoute } = require("./src/routes");
+const path = require("path");
+const connectDb = require("./src/config/db");
+const app = express();
+const { PORT } = require("./src/config");
 
+app.use(express.json());
+// Parse form data (application/x-www-form-urlencoded)
+app.use(express.urlencoded({ extended: true }));
+
+// Connect DB
+connectDb();
+
+// passport-jwt middleware
+require("./src/middleware/auth");
+
+// Set views
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
 // Static assets
 app.use(express.static(path.join(__dirname, "src/public")));
 
-// ---- Page Routes (EJS Views) ----
-app.use("/", authPageRoute);
-// app.use("/", todoPageRoute);
-
-// ---- API Routes ----
-app.use(`/${VERSION}/auth`, authApiRoute);
-app.use("/", todoApiRoute);
+// ----  Routes ----
+app.use("/", authRoute);
+app.use(
+  "/",
+  passport.authenticate("jwt", { session: false, failureRedirect: "/login" }),
+  todoRoute
+);
 
 app.use((err, _, res, next) => {
   // Default fallback

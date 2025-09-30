@@ -1,5 +1,5 @@
 const todoApiRoute = require("express").Router();
-const { getTodoList } = require("../../controllers/todoControllers");
+const { getTodoList, getTodoItems } = require("../controllers/todoControllers");
 
 todoApiRoute.get("/", getTodoList);
 

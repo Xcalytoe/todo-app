@@ -15,19 +15,20 @@
       <h2>Todo List</h2>
 
       <!-- Filters -->
-      <div class="filters">
-        <input type="text" id="search" placeholder="Search by name..." />
-        <select id="statusFilter">
-          <option value="all">All</option>
+      <form action="/" class="filters" method="GET">
+        <input type="text" id="search" name="search" placeholder="Search by name..." />
+        <select id="status" name="status">
+          <option value="">All</option>
           <option value="done">Done</option>
           <option value="pending">Pending</option>
         </select>
-        <input type="date" id="dateFilter" />
-      </div>
+        <input type="date" id="dateFilter" name="dateFilter"/>
+        <button type="submit">Filter</button>
+    </form>
 
       <!-- Date Section -->
       <% Object.entries(todoList).forEach(([date,todos])=>{ %>
-        <% const isCompleted = (todos||[]).some((item)=>item.completed) %>
+        <% const isCompleted = (todos||[]).every((item)=>item.completed) %>
       <div class="date-section">
         <div class="date-header"
           <% if(isCompleted) { %>
@@ -43,6 +44,7 @@
                 <!-- Checkbox  -->
               <input
                 type="checkbox"
+                data-id="<%= todo?._id %>"
                 <% if (todo?.completed) { %>
                     style="cursor: not-allowed"
                 <% } %>
@@ -50,6 +52,8 @@
                 <%= todo?.completed ? 'checked disabled' : '' %>
                 class="done-checkbox"
               />
+              <!--Checkbox end -->
+
               <span><%= todo?.title %></span>
             </div>
             <% if(todo?.completed){%>
@@ -87,7 +91,8 @@
               checkbox.checked = false; // revert
               return;
             }
-
+        const taskId = checkbox.dataset.id;
+        console.log(taskId, "marked as done");
           }
         });
       });
