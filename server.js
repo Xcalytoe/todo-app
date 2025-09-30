@@ -1,17 +1,30 @@
 const express = require("express");
-const authRouter = require("./src/routes/auth");
+const {
+  todoPageRoute,
+  authPageRoute,
+  authApiRoute,
+  todoApiRoute,
+} = require("./src/routes");
 const path = require("path");
 const app = express();
-const PORT = process.env.PORT || 8000;
+const { PORT, VERSION } = require("./src/config");
+
 require("dotenv").config();
 app.use(express.json());
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
-app.use(express.static("public"));
+// Static assets
+app.use(express.static(path.join(__dirname, "src/public")));
 
-app.use("/", authRouter);
+// ---- Page Routes (EJS Views) ----
+app.use("/", authPageRoute);
+// app.use("/", todoPageRoute);
+
+// ---- API Routes ----
+app.use(`/${VERSION}/auth`, authApiRoute);
+app.use("/", todoApiRoute);
 
 app.use((err, _, res, next) => {
   // Default fallback

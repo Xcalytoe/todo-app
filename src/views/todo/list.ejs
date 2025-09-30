@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/todoList.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+
+    <title>Todo List</title>
+  </head>
+  <body>
+    <%- include('../partials/navbar.ejs') %>
+
+    <div class="todo-container">
+      <h2>Todo List</h2>
+
+      <!-- Filters -->
+      <div class="filters">
+        <input type="text" id="search" placeholder="Search by name..." />
+        <select id="statusFilter">
+          <option value="all">All</option>
+          <option value="done">Done</option>
+          <option value="pending">Pending</option>
+        </select>
+        <input type="date" id="dateFilter" />
+      </div>
+
+      <!-- Date Section -->
+      <% Object.entries(todoList).forEach(([date,todos])=>{ %>
+        <% const isCompleted = (todos||[]).some((item)=>item.completed) %>
+      <div class="date-section">
+        <div class="date-header"
+          <% if(isCompleted) { %>
+            style="background: hsla(120, 100%, 30%,0.3); color: hsl(120, 100%, 25%);"
+        <% } %>>
+          <span> <%= date %> </span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="task-list">
+          <% todos.forEach((todo)=>{%>
+          <div class="task <%= todo?.completed ? 'done' : '' %>">
+            <div class="task-left">
+                <!-- Checkbox  -->
+              <input
+                type="checkbox"
+                <% if (todo?.completed) { %>
+                    style="cursor: not-allowed"
+                <% } %>
+                style="<%= todo?.completed ? 'cursor: not-allowed' : '' %>"
+                <%= todo?.completed ? 'checked disabled' : '' %>
+                class="done-checkbox"
+              />
+              <span><%= todo?.title %></span>
+            </div>
+            <% if(todo?.completed){%>
+            <small class="completed-time"
+              >Completed on <%= todo?.updatedAt %></small
+            >
+            <%} %>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+      <% })%>
+    </div>
+
+    <script>
+      // Collapse/Expand functionality
+      document.querySelectorAll(".date-header").forEach((header) => {
+        header.addEventListener("click", () => {
+          const taskList = header.nextElementSibling;
+          const arrow = header.querySelector(".arrow");
+
+          taskList.style.display =
+            taskList.style.display === "block" ? "none" : "block";
+
+          arrow.classList.toggle("rotate");
+        });
+      });
+
+      // Checkbox mark as done + completion time with confirmation
+      document.querySelectorAll(".done-checkbox").forEach((checkbox) => {
+        checkbox.addEventListener("change", () => {
+          if (checkbox.checked) {
+            const confirmDone = confirm("Mark this task as completed?");
+            if (!confirmDone) {
+              checkbox.checked = false; // revert
+              return;
+            }
+
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
