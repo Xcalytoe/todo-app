@@ -7,6 +7,9 @@
           <p class="lead" id="panel-sub">
             Sign in to create or view your Todos
           </p>
+          <% if (message) { %>
+            <p class="notification <%= hasError ? 'error' : 'success' %>"><%= message %></p>
+          <% } %>
           <form action="/login" method="post">
             <input type="email" name="email" placeholder="Email" required />
             <input

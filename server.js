@@ -32,11 +32,19 @@ app.use(
   todoRoute
 );
 
-app.use((err, _, res, next) => {
-  // Default fallback
+// Error handler middleware
+app.use((err, req, res, next) => {
+  const message = err?.message || "Oops! Something went wrong";
+  if (req.renderView) {
+    return res.status(err.statusCode || 400).render(req.renderView || "error", {
+      hasError: true,
+      message,
+    });
+  }
+  // Default Error response for API
   res.status(500).json({
     success: false,
-    message: err?.message || "Opps! Something went wrong",
+    message,
   });
 });
 

@@ -1,5 +1,8 @@
+const passport = require("passport");
+
 const login = (req, res, next) => {
   passport.authenticate("login", async (err, user, info) => {
+    console.log(err, "lllllgf");
     try {
       if (err) {
         return next(err);
@@ -30,12 +33,10 @@ const createUser = (req, res, next) => {
   const { password, confirmPassword } = req.body;
 
   if (password !== confirmPassword) {
-    return res
-      .status(400)
-      .render("auth/signup", {
-        message: "Passwords do not match",
-        hasError: true,
-      });
+    return res.status(400).render("auth/signup", {
+      message: "Passwords do not match",
+      hasError: true,
+    });
   }
   passport.authenticate("signup", { session: false }, (err, user, info) => {
     if (err) return next(err);
