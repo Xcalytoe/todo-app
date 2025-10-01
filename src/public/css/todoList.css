@@ -112,7 +112,17 @@ h2 {
 .arrow.rotate {
   transform: rotate(90deg);
 }
-
+.notification {
+  text-align: center;
+  font-size: 14px;
+  padding: 4px 0;
+}
+.notification.success {
+  color: green;
+}
+.notification.error {
+  color: red;
+}
 /* Custom Checkbox */
 .done-checkbox {
   appearance: none;

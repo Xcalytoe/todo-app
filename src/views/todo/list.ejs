@@ -27,7 +27,10 @@
       <button id="openModal" class="add-todo-btn" type="button">+ Add Todo</button>
 
     </form>
-
+    <!-- Error message -->
+   <% if (typeof message !== "undefined") { %>
+        <p class="notification <%= hasError ? 'error' : 'success' %>"><%= message %></p>
+    <% } %>
       <!-- Date Section -->
       <% if(typeof todoList !== "undefined" && Object.keys(todoList).length > 0) { %>
         <% Object.entries(todoList || {}).forEach(([date,todos])=>{ %>
@@ -61,7 +64,7 @@
                 </div>
                 <% if(todo?.completed){%>
                 <small class="completed-time"
-                >Completed on <%= todo?.updatedAt %></small
+                >Completed on <%= todo?.completedAt %></small
                 >
                 <%} %>
             </div>
@@ -75,14 +78,14 @@
             <div class="modal-content">
                 <span id="closeModal" class="close">&times;</span>
                 <h3>Add a New Todo</h3>
-                <form id="addTodoForm" action="/todos" method="POST">
+                <form id="addTodoForm" method="POST" action="/">
                     <div class="form-input">
                         <label for="title">Todo Title</label>
-                        <input type="text" name="title" placeholder="Enter Todo title" required />
+                        <input type="text" id="title" name="title" placeholder="Enter Todo title" required />
                     </div>
                     <div class="form-input">
                         <label for="date">Todo Date</label>
-                        <input type="date" name="date" placeholder="Todo date" required />
+                        <input type="date" id="date" name="date" placeholder="Todo date" required />
                     </div>
                 <button type="submit">Save</button>
                 </form>
@@ -129,7 +132,6 @@
         window.addEventListener("click", (e) => {
             if (e.target === modal) modal.style.display = "none";
         });
-
-    </script>
+    </script> 
   </body>
 </html>

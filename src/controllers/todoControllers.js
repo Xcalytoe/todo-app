@@ -1,69 +1,44 @@
 const { format } = require("date-fns");
-// TODO: fetch from db
-const todoList = [
-  {
-    _id: 1,
-    title: "Finish backend project",
-    completed: false,
-    date: "2023-10-10",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    _id: 2,
-    title: "Write documentation",
-    completed: false,
-    date: "2023-10-10",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    _id: 3,
-    title: "Go to gym",
-    completed: true,
-    date: "2025-09-28",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    _id: 4,
-    title: "Plan meal prep",
-    completed: true,
-    date: "2025-09-28",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    _id: 5,
-    title: "Resolving deltas: 100% (1/1), completed with 1 local object.",
-    completed: false,
-    date: "2025-09-28",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
+const Todo = require("../models/Todo");
 
 // group todo list by date
 const groupByDate = (todoArr) => {
   return todoArr.reduce((acc, todo) => {
     const date = todo.date;
-    const updatedAt = format(new Date(todo.updatedAt), "PPpp");
+    const completedAt = format(new Date(todo.completedAt), "PPpp");
+    const formattedDate = format(new Date(todo.date), "dd-MM-yyyy");
+
     // Check if the key exists
     if (!acc[date]) {
       acc[date] = [];
     }
-    acc[date].push({ ...todo, updatedAt });
+    acc[date].push({ ...todo, completedAt, date: formattedDate });
     return acc;
   }, {});
 };
 
-const getTodoList = async (req, res) => {
-  console.log(req.params, "fdx");
-  console.log(req.query, "req.query");
-  const list = groupByDate(todoList);
-  res.render("todo/list", { todoList: list });
+const getTodoList = async (req, res, next) => {
+  try {
+    const todos = await Todo.find({ userId: req.user._id }).sort({ date: -1 });
+
+    const list = groupByDate(todos);
+    res.render("todo/list", { todoList: list });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const addTodo = async (req, res, next) => {
+  try {
+    const { title, date } = req.body;
+    const me = await Todo.create({ title, date, userId: req.user._id });
+    res.redirect("/");
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
   getTodoList,
+  addTodo,
 };
