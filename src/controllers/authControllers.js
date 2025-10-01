@@ -1,8 +1,8 @@
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
 
 const login = (req, res, next) => {
   passport.authenticate("login", async (err, user, info) => {
-    console.log(err, "lllllgf");
     try {
       if (err) {
         return next(err);
