@@ -57,7 +57,7 @@ const groupByDate = (todoArr) => {
   }, {});
 };
 
-const getTodoList = (req, res) => {
+const getTodoList = async (req, res) => {
   console.log(req.params, "fdx");
   console.log(req.query, "req.query");
   const list = groupByDate(todoList);

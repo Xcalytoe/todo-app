@@ -24,48 +24,70 @@
         </select>
         <input type="date" id="dateFilter" name="dateFilter"/>
         <button type="submit">Filter</button>
+      <button id="openModal" class="add-todo-btn" type="button">+ Add Todo</button>
+
     </form>
 
       <!-- Date Section -->
-      <% Object.entries(todoList).forEach(([date,todos])=>{ %>
-        <% const isCompleted = (todos||[]).every((item)=>item.completed) %>
-      <div class="date-section">
-        <div class="date-header"
-          <% if(isCompleted) { %>
-            style="background: hsla(120, 100%, 30%,0.3); color: hsl(120, 100%, 25%);"
-        <% } %>>
-          <span> <%= date %> </span>
-          <span class="arrow">▶</span>
-        </div>
-        <div class="task-list">
-          <% todos.forEach((todo)=>{%>
-          <div class="task <%= todo?.completed ? 'done' : '' %>">
-            <div class="task-left">
-                <!-- Checkbox  -->
-              <input
-                type="checkbox"
-                data-id="<%= todo?._id %>"
-                <% if (todo?.completed) { %>
-                    style="cursor: not-allowed"
-                <% } %>
-                style="<%= todo?.completed ? 'cursor: not-allowed' : '' %>"
-                <%= todo?.completed ? 'checked disabled' : '' %>
-                class="done-checkbox"
-              />
-              <!--Checkbox end -->
-
-              <span><%= todo?.title %></span>
+      <% if(typeof todoList !== "undefined" && Object.keys(todoList).length > 0) { %>
+        <% Object.entries(todoList || {}).forEach(([date,todos])=>{ %>
+            <% const isCompleted = (todos||[]).every((item)=>item.completed) %>
+        <div class="date-section">
+            <div class="date-header"
+            <% if(isCompleted) { %>
+                style="background: hsla(120, 100%, 30%,0.3); color: hsl(120, 100%, 25%);"
+            <% } %>>
+            <span> <%= date %> </span>
+            <span class="arrow">▶</span>
             </div>
-            <% if(todo?.completed){%>
-            <small class="completed-time"
-              >Completed on <%= todo?.updatedAt %></small
-            >
-            <%} %>
-          </div>
-          <% }) %>
+            <div class="task-list">
+            <% todos.forEach((todo)=>{%>
+            <div class="task <%= todo?.completed ? 'done' : '' %>">
+                <div class="task-left">
+                    <!-- Checkbox  -->
+                <input
+                    type="checkbox"
+                    data-id="<%= todo?._id %>"
+                    <% if (todo?.completed) { %>
+                        style="cursor: not-allowed"
+                    <% } %>
+                    style="<%= todo?.completed ? 'cursor: not-allowed' : '' %>"
+                    <%= todo?.completed ? 'checked disabled' : '' %>
+                    class="done-checkbox"
+                />
+                <!--Checkbox end -->
+
+                <span><%= todo?.title %></span>
+                </div>
+                <% if(todo?.completed){%>
+                <small class="completed-time"
+                >Completed on <%= todo?.updatedAt %></small
+                >
+                <%} %>
+            </div>
+            <% }) %>
+            </div>
         </div>
-      </div>
-      <% })%>
+        <% })%>
+      <% } %>
+      <!-- Modal -->
+        <div id="todoModal" class="modal">
+            <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <h3>Add a New Todo</h3>
+                <form id="addTodoForm" action="/todos" method="POST">
+                    <div class="form-input">
+                        <label for="title">Todo Title</label>
+                        <input type="text" name="title" placeholder="Enter Todo title" required />
+                    </div>
+                    <div class="form-input">
+                        <label for="date">Todo Date</label>
+                        <input type="date" name="date" placeholder="Todo date" required />
+                    </div>
+                <button type="submit">Save</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -96,6 +118,18 @@
           }
         });
       });
+
+            // Modal open/close
+        const modal = document.getElementById("todoModal");
+        const openBtn = document.getElementById("openModal");
+        const closeBtn = document.getElementById("closeModal");
+
+        openBtn.addEventListener("click", () => modal.style.display = "block");
+        closeBtn.addEventListener("click", () => modal.style.display = "none");
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) modal.style.display = "none";
+        });
+
     </script>
   </body>
 </html>

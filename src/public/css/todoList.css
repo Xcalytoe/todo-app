@@ -138,3 +138,67 @@ h2 {
   content: "✔";
   font-size: 14px;
 }
+
+/* Modal Base */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal Content */
+.modal-content {
+  background: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Close Button */
+.close {
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.modal input {
+  padding: 8px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.modal label {
+  font-size: 12px;
+  display: block;
+  padding-bottom: 4px;
+}
+.form-input {
+  padding-bottom: 14px;
+}
+.modal button {
+  border-radius: 4px;
+  border: 1px solid var(--blue);
+  background: var(--blue);
+  padding: 8px 10px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  max-width: 200px;
+  width: 100%;
+  margin: 10px auto;
+  cursor: pointer;
+}
+
+.filters button.add-todo-btn {
+  padding: 8px 10px;
+  background: hsla(211, 100%, 50%, 0.3);
+  border: 1px solid var(--blue);
+  color: var(--blue);
+  cursor: pointer;
+}

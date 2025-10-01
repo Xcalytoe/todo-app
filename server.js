@@ -6,6 +6,8 @@ const path = require("path");
 const connectDb = require("./src/config/db");
 const app = express();
 const { PORT } = require("./src/config");
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 app.use(express.json());
 // Parse form data (application/x-www-form-urlencoded)
@@ -27,7 +29,7 @@ app.use(express.static(path.join(__dirname, "src/public")));
 // ----  Routes ----
 app.use("/", authRoute);
 app.use(
-  "/",
+  ["/", "/todo"],
   passport.authenticate("jwt", { session: false, failureRedirect: "/login" }),
   todoRoute
 );

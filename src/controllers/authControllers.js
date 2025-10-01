@@ -21,7 +21,12 @@ const login = (req, res, next) => {
         // DO NOT STORE PASSWORDS IN THE JWT!
         const token = jwt.sign({ user: body }, process.env.JWT_SECRET);
 
-        return res.json({ token });
+        // return res.render("todo/list", { todoList: {}, token });
+        // 🔑 Save token in a cookie
+        res.cookie("jwt", token, { httpOnly: true, secure: false });
+
+        // 🔄 Redirect to homepage
+        return res.redirect("/");
       });
     } catch (error) {
       return next(error);
@@ -45,11 +50,13 @@ const createUser = (req, res, next) => {
         .status(400)
         .render("auth/signup", { message: info.message, hasError: true });
 
-    res.render("auth/signup", {
-      message: "Signup successful",
-      hasError: false,
-      user,
-    });
+    res
+      .render("auth/signup", {
+        message: "Signup successful, please login",
+        hasError: false,
+        user,
+      })
+      .redirect("/login");
   })(req, res, next);
 };
 
