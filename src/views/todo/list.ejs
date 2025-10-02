@@ -16,13 +16,13 @@
 
       <!-- Filters -->
       <form action="/" class="filters" method="GET">
-        <input type="text" id="search" name="search" placeholder="Search by name..." />
-        <select id="status" name="status">
+        <input type="text" id="title" name="title" placeholder="Search by title..." />
+        <select id="completed" name="completed">
           <option value="">All</option>
-          <option value="done">Done</option>
-          <option value="pending">Pending</option>
+          <option value="true">Completed</option>
+          <option value="false">Pending</option>
         </select>
-        <input type="date" id="dateFilter" name="dateFilter"/>
+        <input type="date" id="date" name="date"/>
         <button type="submit">Filter</button>
       <button id="openModal" class="add-todo-btn" type="button">+ Add Todo</button>
 
