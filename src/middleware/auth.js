@@ -4,6 +4,7 @@ const UserModel = require("../models/User");
 const JwtStrategy = require("passport-jwt").Strategy;
 // const ExtractJwt = require("passport-jwt").ExtractJwt;
 const { JWT_SECRET } = require("../config");
+const { isBlacklisted } = require("../utils/tokenBlacklist");
 
 const cookieExtractor = (req) => {
   let token = null;
@@ -17,10 +18,18 @@ let opts = {};
 // opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = JWT_SECRET;
+opts.passReqToCallback = true;
 
 passport.use(
-  new JwtStrategy(opts, async function (jwt_payload, done) {
+  new JwtStrategy(opts, async function (req, jwt_payload, done) {
     try {
+      const token = cookieExtractor(req);
+
+      if (token && isBlacklisted(token)) {
+        return done(null, false); // reject blacklisted token
+      }
+      // Attach user info to request object
+      req.user = jwt_payload.user;
       return done(null, jwt_payload.user);
     } catch (error) {
       done(error);

@@ -5,12 +5,24 @@
 nav {
   background: white;
   padding: 20px 100px;
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
 }
 nav a {
   color: #333;
   text-decoration: none !important;
 }
-
+nav .auth button,
+nav .auth a {
+  background: var(--blue);
+  color: white;
+  border: none;
+  display: inline-block;
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 5px;
+}
 .logo {
   display: flex;
   justify-items: center;

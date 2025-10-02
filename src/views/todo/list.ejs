@@ -9,7 +9,7 @@
     <title>Todo List</title>
   </head>
   <body>
-    <%- include('../partials/navbar.ejs') %>
+    <%- include('../partials/navbar.ejs', { authPath:"/logout" }) %>
 
     <div class="todo-container">
       <h2>Todo List</h2>

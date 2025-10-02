@@ -8,5 +8,16 @@
         </div>
       </div>
     </a>
+    <div class="auth">
+      <a href="<%= authPath %>">
+        <% if (authPath === '/sign-up') { %> 
+        Sign Up
+        <% } else if (authPath === '/login') { %> 
+        Login 
+        <% } else { %> 
+        Logout 
+        <% } %>
+      </a>
+    </div>
   </nav>
 </header>

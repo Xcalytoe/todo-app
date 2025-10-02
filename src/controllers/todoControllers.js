@@ -40,7 +40,6 @@ const getTodoList = async (req, res, next) => {
     });
 
     const list = groupByDate(todos);
-    // console.log("formattedDate", list, todos);
 
     res.render("todo/list", { todoList: list });
   } catch (error) {
@@ -51,7 +50,7 @@ const getTodoList = async (req, res, next) => {
 const addTodo = async (req, res, next) => {
   try {
     const { title, date } = req.body;
-    const me = await Todo.create({ title, date, userId: req.user._id });
+    await Todo.create({ title, date, userId: req.user._id });
     res.redirect("/");
   } catch (error) {
     next(error);

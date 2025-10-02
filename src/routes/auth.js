@@ -1,5 +1,5 @@
 const authRoute = require("express").Router();
-const passport = require("passport");
+const { add } = require("../utils/tokenBlacklist");
 const { login, createUser } = require("../controllers/authControllers");
 
 // Page Routes
@@ -27,5 +27,15 @@ authRoute.post(
   },
   login
 );
+
+authRoute.get("/logout", (req, res) => {
+  const token = req.cookies.jwt;
+  if (token) {
+    // Add the token to the blacklist
+    add(token);
+  }
+  res.clearCookie("jwt");
+  res.redirect("/login");
+});
 
 module.exports = authRoute;
