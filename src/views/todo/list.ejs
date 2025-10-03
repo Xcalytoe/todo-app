@@ -117,7 +117,7 @@
               return;
             }
         const taskId = checkbox.dataset.id;
-        console.log(taskId, "marked as done");
+        window.location.href = `/todo/${taskId}`
           }
         });
       });

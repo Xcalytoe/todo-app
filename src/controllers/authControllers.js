@@ -57,13 +57,11 @@ const createUser = (req, res, next) => {
         .status(400)
         .render("auth/signup", { message: info.message, hasError: true });
 
-    res
-      .render("auth/signup", {
-        message: "Signup successful, please login",
-        hasError: false,
-        user,
-      })
-      .redirect("/login");
+    res.render("auth/signup", {
+      message: "Signup successful, please login",
+      hasError: false,
+      user,
+    });
   })(req, res, next);
 };
 

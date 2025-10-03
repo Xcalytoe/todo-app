@@ -24,12 +24,4 @@ const TodoSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Pre-save hook to set completedAt
-TodoSchema.pre("save", function (next) {
-  if (this.isModified("completed") && this.completed) {
-    this.completedAt = new Date();
-  }
-  next();
-});
-
 module.exports = mongoose.model("Todo", TodoSchema);

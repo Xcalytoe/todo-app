@@ -56,8 +56,23 @@ const addTodo = async (req, res, next) => {
     next(error);
   }
 };
+const updateTodo = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await Todo.findByIdAndUpdate(
+      { _id: id, userId: req.user._id },
+      { completed: true, completedAt: new Date() },
+      { new: true }
+    );
+    res.redirect("/");
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   getTodoList,
   addTodo,
+  updateTodo,
 };
