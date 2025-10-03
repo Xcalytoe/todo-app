@@ -6,7 +6,7 @@ const groupByDate = (todoArr) => {
   return todoArr.reduce((acc, todo) => {
     const dateKey = todo.date.toISOString().split("T")[0];
     const completedAt = todo?.completedAt
-      ? format(new Date(todo.completedAt), "iii LLL dd yyyy h:mm aaa")
+      ? format(new Date(todo.completedAt), "iii LLL dd yyyy hh:mm aaa")
       : null;
 
     // Check if the key exists
