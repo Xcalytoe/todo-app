@@ -16,6 +16,9 @@ const TodoSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    completedAt: {
+      type: Date,
+    },
     date: {
       required: [true, "Todo date is required"],
       type: Date,

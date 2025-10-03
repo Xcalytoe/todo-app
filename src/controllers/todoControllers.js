@@ -5,9 +5,10 @@ const Todo = require("../models/Todo");
 const groupByDate = (todoArr) => {
   return todoArr.reduce((acc, todo) => {
     const dateKey = todo.date.toISOString().split("T")[0];
-    const completedAt = {
-      ...(todo?.completedAt && format(new Date(todo.completedAt), "PPpp")),
-    };
+    const completedAt = todo?.completedAt
+      ? format(new Date(todo.completedAt), "iii LLL dd yyyy h:mm aaa")
+      : null;
+
     // Check if the key exists
     if (!acc[dateKey]) {
       acc[dateKey] = [];
@@ -16,7 +17,7 @@ const groupByDate = (todoArr) => {
     const todoObj = todo.toJSON();
 
     // acc[dateKey].push({ ...todo, completedAt, date: formattedDate });
-    acc[dateKey].push({ ...todoObj, ...completedAt });
+    acc[dateKey].push({ ...todoObj, completedAt });
     return acc;
   }, {});
 };
@@ -40,7 +41,6 @@ const getTodoList = async (req, res, next) => {
     });
 
     const list = groupByDate(todos);
-
     res.render("todo/list", { todoList: list });
   } catch (error) {
     next(error);
@@ -60,10 +60,9 @@ const updateTodo = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    await Todo.findByIdAndUpdate(
+    await Todo.findOneAndUpdate(
       { _id: id, userId: req.user._id },
-      { completed: true, completedAt: new Date() },
-      { new: true }
+      { completed: true, completedAt: new Date() }
     );
     res.redirect("/");
   } catch (error) {
