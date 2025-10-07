@@ -212,3 +212,16 @@ h2 {
   color: var(--blue);
   cursor: pointer;
 }
+
+.empty-state {
+  padding: 50px 0;
+  margin: 30px auto;
+  max-width: 650px;
+  background: #fff;
+  border-radius: 8px;
+}
+.empty-state p {
+  text-align: center;
+  color: #4e657b;
+  font-size: 20px;
+}

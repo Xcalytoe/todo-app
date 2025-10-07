@@ -12,6 +12,10 @@
     <%- include('../partials/navbar.ejs', { authPath:"/logout" }) %>
 
     <div class="todo-container">
+      <% if (typeof name !== "undefined") { %>
+      <h3>Welcome, <em style="color: #0056b3;"><%= name %></em> 😎</h3>
+      <% } %>
+
       <h2>Todo List</h2>
 
       <!-- Filters -->
@@ -73,6 +77,12 @@
         </div>
         <% })%>
       <% } %>
+
+      <!-- Empty state  -->
+      <% if(typeof todoList !== "undefined" && Object.keys(todoList).length === 0) { %>
+            <%- include('../partials/emptyState.ejs') %>
+      <% } %>
+
       <!-- Modal -->
         <div id="todoModal" class="modal">
             <div class="modal-content">

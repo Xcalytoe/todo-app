@@ -41,7 +41,8 @@ const getTodoList = async (req, res, next) => {
     });
 
     const list = groupByDate(todos);
-    res.render("todo/list", { todoList: list });
+
+    res.render("todo/list", { name: req.user.first_name, todoList: list });
   } catch (error) {
     next(error);
   }

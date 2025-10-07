@@ -11,6 +11,8 @@
           <p class="notification <%= hasError ? 'error' : 'success' %>"><%= message %></p>
           <% } %>
           <form action="/sign-up" method="post">
+            <input type="text" name="first_name" placeholder="Enter firstname" required />
+            <input type="text" name="last_name" placeholder="Enter lastname" required />
             <input type="email" name="email" placeholder="Email" required />
             <input
               type="password"
